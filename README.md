@@ -81,9 +81,21 @@ Presets live in [`presets/formats/`](presets/formats). They are **examples**, no
 
 Values checked 2026-10; platforms change their rules, so check before you rely on them.
 
+## Example: "Saturday Cake"
+
+A 3-slide Instagram carousel made end to end with this tool: the owner's approved character sheet as the only reference, an English storyboard, three page generations at 4:5, panel split, compose, and lettering with face-aware bubble placement (10 bubbles, one adjusted by hand).
+
+<p>
+  <img src="docs/images/example-saturday-cake-01.jpg" width="32%" alt="Saturday Cake, slide 1">
+  <img src="docs/images/example-saturday-cake-02.jpg" width="32%" alt="Saturday Cake, slide 2">
+  <img src="docs/images/example-saturday-cake-03.jpg" width="32%" alt="Saturday Cake, slide 3">
+</p>
+
+<sub>Lumi is an original character owned by Saeyeon-developer. The example images are shown for demonstration only and are **not** covered by this repository's Apache-2.0 license; do not reuse them or the character without permission.</sub>
+
 ## Status
 
-v0.1. The full pipeline has been run end to end on a real 3-page episode (character sheets from 3D screenshots → storyboard → generation → one panel redraw → lettering → Instagram export). Example images made with original characters will be added to this README.
+v0.1. The full pipeline has been run end to end on real episodes, including character sheets built from 3D screenshots, single-panel redraws and the example above.
 
 ## Limits
 

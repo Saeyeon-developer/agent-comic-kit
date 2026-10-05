@@ -6,3 +6,5 @@ __pycache__/
 docs/briefs/
 .claude/agents/
 *.egg-info/
+# Example project uses a private owner character: only exported images are published (docs/images/)
+examples/

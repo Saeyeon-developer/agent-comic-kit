@@ -81,9 +81,21 @@ script.yaml ─► prompt page ─► gen page ─► split ─► review each p
 
 값은 2026-10에 확인했습니다. 플랫폼은 규칙을 바꾸므로 의존하기 전에 다시 확인하세요.
 
+## Example: "Saturday Cake"
+
+이 툴로 처음부터 끝까지 만든 3장짜리 인스타그램 캐러셀입니다. 오너가 확정한 캐릭터 시트 한 장만 레퍼런스로 쓰고, 영어 콘티 작성 → 4:5 페이지 3장 생성 → 컷 분리 → 재배치 → 얼굴 위치 기반 자동 식자(말풍선 10개 중 1개만 수동 조정) 순서로 만들었습니다.
+
+<p>
+  <img src="docs/images/example-saturday-cake-01.jpg" width="32%" alt="Saturday Cake, slide 1">
+  <img src="docs/images/example-saturday-cake-02.jpg" width="32%" alt="Saturday Cake, slide 2">
+  <img src="docs/images/example-saturday-cake-03.jpg" width="32%" alt="Saturday Cake, slide 3">
+</p>
+
+<sub>Lumi는 Saeyeon-developer가 저작권을 가진 오리지널 캐릭터입니다. 예시 이미지는 시연용으로만 게시하며 이 저장소의 Apache-2.0 라이선스 적용 대상이 **아닙니다**. 허락 없이 이미지나 캐릭터를 재사용하지 마세요.</sub>
+
 ## Status
 
-v0.1입니다. 실제 3페이지 에피소드로 전체 파이프라인을 처음부터 끝까지 실행했습니다(3D 스크린샷으로 캐릭터 시트 제작 → 스토리보드 → 생성 → 컷 한 번 다시 그리기 → 레터링 → Instagram 내보내기). 오리지널 캐릭터로 만든 예시 이미지를 이 README에 추가할 예정입니다.
+v0.1입니다. 3D 스크린샷으로 만든 캐릭터 시트, 컷 단독 재생성, 위 예시를 포함해 실제 에피소드로 전체 파이프라인을 처음부터 끝까지 실행했습니다.
 
 ## Limits
 

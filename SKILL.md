@@ -72,7 +72,7 @@ comic gen page my-comic ep01 p01         # → pages/p01.vN.png (at the preset's
 comic split my-comic ep01 p01            # → panels/p01-<id>.vN.png
 ```
 
-If `split` finds a different number of panels than the script, look at the page: either regenerate it, or pass the panel boxes yourself with `--boxes`.
+If `split` finds a different number of panels than the script, look at the page before regenerating anything. Common causes: something (hair, a hand, an effect) breaks through a panel border into the gutter, leaving only a thin white line — retry with `--min-gutter 4`; warm or tinted lighting makes the gutter off-white — retry with `--white 220`. If neither works, pass the panel boxes yourself with `--boxes`, or regenerate the page.
 
 **Review every panel** against the script and the sheets. Look at the image; do not assume. Check:
 - each character's face, hair, outfit and accessories match the sheet; nobody swapped features
