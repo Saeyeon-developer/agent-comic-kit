@@ -1,0 +1,8 @@
+# Experiment inputs/outputs use fan-art models; never publish them
+experiments/
+__pycache__/
+*.pyc
+.claude/launch.json
+docs/briefs/
+.claude/agents/
+*.egg-info/

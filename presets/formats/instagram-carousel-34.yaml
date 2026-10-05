@@ -1,0 +1,15 @@
+# Editable example preset. These are examples, not definitions of any genre or platform rule set.
+# Copy this file to add your own platform; keep the same keys.
+name: instagram-carousel-34
+label: "Instagram carousel 3:4"
+kind: slides                 # slides | scroll
+width: 1080
+height: 1440                 # page canvas in px
+slice_height: null           # scroll only
+max_pages: 20                # slides per post (null = no limit)
+per_post: null               # null = one post; e.g. 4 groups files into post-1/, post-2/
+file: {type: jpg, quality: 92, max_mb: 8}
+layout: {margin: 36, gutter: 24, border: 4}   # px at this width
+checked: "2026-10"
+notes: "3:4 portrait variant. All slides in a carousel must share one aspect ratio."
+sources: ["https://carouselpost.io/guides/instagram-carousel-size"]

@@ -1,0 +1,15 @@
+# Editable example preset. These are examples, not definitions of any genre or platform rule set.
+# Copy this file to add your own platform; keep the same keys.
+name: vertical-scroll
+label: "Vertical scroll, 800 px wide"
+kind: scroll                 # slides | scroll
+width: 800
+height: 1280                 # height of one page segment in px
+slice_height: 1280           # scroll only: export slices of this height
+max_pages: null              # no limit
+per_post: null
+file: {type: jpg, quality: 92, max_mb: 8}
+layout: {margin: 27, gutter: 18, border: 3}   # px at this width
+checked: "2026-10"
+notes: "Pages are stitched top to bottom into one long strip and cut into slices of slice_height. Check your platform's own width and per-file size limits."
+sources: []

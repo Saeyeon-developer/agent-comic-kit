@@ -1,0 +1,19 @@
+# Project settings. Edit freely; run "comic status DIR" to check the project.
+title: "My Comic"
+language: en                 # dialogue language (font discovery uses it)
+reading_direction: ltr       # ltr | rtl | ttb
+format:
+  preset: instagram-carousel # name of a file in presets/formats/ (see "comic presets")
+  overrides: {}              # any preset key, deep-merged over the preset
+style:
+  description: "Clean line art, full colour, cel shading with soft gradients"   # the only source of art style in prompts
+  color: "full colour"
+  refs: []                   # optional style reference images (project-relative)
+lettering:
+  mode: overlay              # overlay | in-image (in-image: prompts ask the model to draw bubbles + text)
+  font: null                 # path to a font file; null = auto-discover
+  size: 30                   # px at a 1080 px wide canvas; scaled by canvas_width/1080
+backend:
+  name: codex-relay          # codex-relay | agent
+  relay: null                # path to imagen.ps1; null = env COMIC_RELAY
+  prompt_mode: Final         # passed to the relay

@@ -1,0 +1,15 @@
+# Editable example preset. These are examples, not definitions of any genre or platform rule set.
+# Copy this file to add your own platform; keep the same keys.
+name: x-post
+label: "X post, 4 images 4:5"
+kind: slides                 # slides | scroll
+width: 1080
+height: 1350                 # page canvas in px
+slice_height: null           # scroll only
+max_pages: null              # no limit on total pages; they are split into posts below
+per_post: 4                  # export groups files into post-1/, post-2/ with 4 images each
+file: {type: jpg, quality: 92, max_mb: 5}
+layout: {margin: 36, gutter: 24, border: 4}   # px at this width
+checked: "2026-10"
+notes: "One post holds up to 4 images, so longer episodes are split into several posts."
+sources: ["https://skedsocial.com/blog/twitter-post-size-guide"]

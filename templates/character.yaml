@@ -1,0 +1,11 @@
+# Character definition: cast/<id>/character.yaml
+id: alice                    # folder name under cast/; used in script.yaml
+name: "Alice"                # display name used in prompts
+status: draft                # draft | approved (only "comic cast approve" sets approved)
+appearance: >-               # fixed description pasted into every prompt that shows this character
+  young adult woman, shoulder-length dark brown hair, round glasses, green jacket over a white shirt, blue jeans, white sneakers
+personality: "curious, cheerful, a little clumsy"
+height: "average height"     # free text, used in height comparisons between characters
+expressions: [smile, laugh, surprised, annoyed]   # shoulder-up expressions on the sheet
+inputs: []                   # cast-relative source images used as sheet references, e.g. inputs/photo.png
+sheet: null                  # set by approve, e.g. refs/sheet.png

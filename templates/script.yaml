@@ -1,0 +1,31 @@
+# Storyboard: episodes/<ep>/script.yaml
+episode: ep01
+title: "Episode title"
+pages:
+  - id: p01
+    panels:                  # panels are stacked top to bottom, full width
+      - id: 1
+        weight: 55           # relative slot height (default 1)
+        shot: "wide shot, eye level"
+        characters: [alice, bob]       # cast ids; all must be approved before generating
+        action: "Alice waves at Bob across a busy street; Bob looks up from his phone, surprised"
+        background: "city street, daytime, shop fronts"
+        bubble_space: "top-left"       # where to keep empty for bubbles (free text)
+        focus: 0.5                     # optional crop anchor for compose (0 top ... 1 bottom)
+        locked: [shot]                 # fields you decided; agents must not change them
+        positions:                     # optional, after composing: face centre of each character in this
+          alice: [0.30, 0.35]          # panel (fractions of the panel); bubbles avoid faces, tails aim at them
+          bob: [0.70, 0.40]
+        dialogue:                      # type: speech | shout | thought | narration
+          - {type: narration, text: "Monday morning"}
+          - {type: speech, speaker: alice, text: "Bob! Over here!"}
+      - id: 2
+        weight: 45
+        shot: "close-up, slightly low angle"
+        characters: [bob, alice]
+        action: "Bob grins and jogs over while Alice laughs"
+        background: "same street, out of focus"
+        bubble_space: "top-right"
+        dialogue:
+          - {type: shout, speaker: bob, text: "Wait for me!"}
+          - {type: thought, speaker: alice, text: "He is always late."}

@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "agent-comic-kit"
+version = "0.1.0"
+description = "CLI + agent skill for making comics with AI image generation"
+readme = "README.md"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+requires-python = ">=3.11"
+dependencies = [
+    "pillow",
+    "pyyaml",
+]
+
+[project.optional-dependencies]
+test = ["pytest"]
+
+[project.scripts]
+comic = "comic.cli:main"
+
+# v0.1 runs from a checkout: `python -m comic ...` inside the repo, or
+# `pip install -e .` for the `comic` command. Presets (presets/formats/*.yaml)
+# and templates (templates/*.yaml) are read from the repository root, located
+# via Path(__file__).resolve().parent.parent, so a non-editable wheel install
+# is not supported yet.
+[tool.setuptools.packages.find]
+include = ["comic*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
