@@ -492,6 +492,7 @@ def test_cast_new_sheet_approve(tmp_path, capsys):
     assert run("cast", "new", root, "alice", "--name", "X") == 1  # never overwrite
     assert run("cast", "new", root, "bad id", "--name", "X") == 1
 
+    set_appearance(root, "alice", "tall woman, short silver hair, red coat")
     assert run("cast", "approve", root, "alice") == 1  # no drafts yet
     assert run("gen", "sheet", root, "alice") == 3
     draft = root / "cast" / "alice" / "drafts" / "sheet.v1.png"
@@ -508,6 +509,63 @@ def test_cast_new_sheet_approve(tmp_path, capsys):
     assert run("cast", "approve", root, "alice") == 0  # default: latest draft
     with Image.open(ch.sheet_path()) as im:
         assert im.size == (90, 60)
+
+
+def set_appearance(root, cid, text):
+    yml = root / "cast" / cid / "character.yaml"
+    data = yaml.safe_load(yml.read_text(encoding="utf-8"))
+    data["appearance"] = text
+    yml.write_text(yaml.safe_dump(data, allow_unicode=True, sort_keys=False), encoding="utf-8")
+
+
+def _cast_with_draft(tmp_path):
+    root = make_project(tmp_path / "proj")
+    assert run("cast", "new", root, "alice", "--name", "Alice") == 0
+    png(root / "cast" / "alice" / "drafts" / "sheet.v1.png")
+    return root
+
+
+def test_cast_approve_refuses_template_appearance(tmp_path, capsys):
+    root = _cast_with_draft(tmp_path)
+    capsys.readouterr()
+    assert run("cast", "approve", root, "alice") == 1
+    err = capsys.readouterr().err
+    assert "still has the template appearance" in err and "--force" in err
+    assert not Project.load(root).character("alice").approved
+    # whitespace-normalised, and empty counts too
+    tpl = prompts.template_appearance()
+    set_appearance(root, "alice", "  " + tpl.replace(" ", "  ") + " ")
+    assert run("cast", "approve", root, "alice") == 1
+    set_appearance(root, "alice", "")
+    assert run("cast", "approve", root, "alice") == 1
+
+
+def test_cast_approve_force_warns(tmp_path, capsys):
+    root = _cast_with_draft(tmp_path)
+    capsys.readouterr()
+    assert run("cast", "approve", root, "alice", "--force") == 0
+    assert "warning:" in capsys.readouterr().err
+    assert Project.load(root).character("alice").approved
+
+
+def test_prompt_warns_on_template_appearance(tmp_path, capsys):
+    root = _cast_with_draft(tmp_path)
+    capsys.readouterr()
+    assert run("prompt", "sheet", root, "alice") == 0
+    assert "cast/alice/character.yaml has an empty or template appearance" in capsys.readouterr().err
+    set_appearance(root, "alice", "tall woman, short silver hair, red coat")
+    assert run("prompt", "sheet", root, "alice") == 0
+    assert "template appearance" not in capsys.readouterr().err
+
+
+def test_page_and_panel_prompts_warn(tmp_path, capsys):
+    root = setup_project(tmp_path)
+    set_appearance(root, "alice", "")
+    project = Project.load(root)
+    ep = project.episode("ep01")
+    capsys.readouterr()
+    prompts.page_prompt(project, ep, "p01")
+    assert "cast/alice/character.yaml" in capsys.readouterr().err
 
 
 FAKE_PS1 = r'''

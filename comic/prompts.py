@@ -11,8 +11,12 @@ template text never names a genre.
 
 from __future__ import annotations
 
+import sys
 from pathlib import Path
 
+import yaml
+
+from comic import TEMPLATES_DIR
 from comic.layout import aspect_text, slot_boxes
 from comic.project import ComicError, Project, latest_version, load_yaml, save_yaml
 
@@ -90,6 +94,28 @@ def _style_refs(project: Project) -> list[Path]:
 
 def _lettering_mode(project: Project) -> str:
     return str(project.section("lettering").get("mode") or "overlay")
+
+
+def template_appearance() -> str:
+    """Whitespace-normalised appearance from templates/character.yaml ('' if unavailable)."""
+    try:
+        data = yaml.safe_load((TEMPLATES_DIR / "character.yaml").read_text(encoding="utf-8")) or {}
+    except (OSError, yaml.YAMLError):
+        return ""
+    return _clean(data.get("appearance")) if isinstance(data, dict) else ""
+
+
+def appearance_is_placeholder(appearance) -> bool:
+    """True when appearance is empty or still the character template's text."""
+    a = _clean(appearance)
+    return not a or a == template_appearance()
+
+
+def _warn_placeholder(chars) -> None:
+    for ch in chars:
+        if appearance_is_placeholder(ch.data.get("appearance")):
+            print(f"warning: cast/{ch.id}/character.yaml has an empty or template appearance; "
+                  "describe the character's look", file=sys.stderr)
 
 
 def _characters(project: Project, ids) -> list:
@@ -199,6 +225,7 @@ def sheet_prompt(project: Project, character) -> tuple[str, list[Path]]:
             expressions.append(d)
     expressions = expressions[:4]
 
+    _warn_placeholder([ch])
     lines = [f"One character design sheet for {ch.name}. {ratio_line(*SHEET_ASPECT)}", ""]
     if roles:
         lines += _ref_lines(roles, "Source image") + [""]
@@ -235,6 +262,7 @@ def page_prompt(project: Project, episode, page_id) -> tuple[str, list[Path]]:
         raise ComicError(f"episode {episode.id} page {page_id}: no panels in script.yaml")
     where = f"{episode.id} {page_id}"
     chars = _characters(project, episode.page_characters(page_id))
+    _warn_placeholder(chars)
     sheet_refs = _sheet_refs(project, chars, where)
     style_refs = _style_refs(project)
     refs = [p for p, _ in sheet_refs] + style_refs
@@ -304,6 +332,7 @@ def panel_prompt(project: Project, episode, page_id, panel_id) -> tuple[str, lis
     panel = episode.panel(page_id, panel_id)
     x0, y0, x1, y1 = panel_slot(project, episode, page_id, panel_id)
     chars = _characters(project, [str(c) for c in panel.get("characters") or []])
+    _warn_placeholder(chars)
     sheet_refs = _sheet_refs(project, chars, f"{episode.id} {page_id}-{panel_id}")
 
     refs: list[Path] = []

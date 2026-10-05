@@ -34,6 +34,8 @@ def register(subparsers):
     c.add_argument("dir", help="project folder")
     c.add_argument("id", help="character id")
     c.add_argument("--draft", help="draft image to approve (default: latest drafts/sheet.vN.png)")
+    c.add_argument("--force", action="store_true",
+                   help="approve even if appearance is empty or still the template's (warns instead of refusing)")
     c.set_defaults(func=cmd_cast_approve)
 
     # prompt / gen ---------------------------------------------------------
@@ -172,6 +174,12 @@ def cmd_cast_new(args):
 def cmd_cast_approve(args):
     project = Project.load(args.dir)
     ch = project.character(args.id)
+    if prompts.appearance_is_placeholder(ch.data.get("appearance")):
+        msg = (f"cast/{ch.id}/character.yaml still has the template appearance; "
+               "describe the character's look first (or pass --force)")
+        if not args.force:
+            raise ComicError(msg)
+        print(f"warning: {msg.split(';')[0]}", file=sys.stderr)
     drafts = ch.root / "drafts"
     if args.draft:
         cand = Path(args.draft).expanduser()
